@@ -173,7 +173,7 @@ public class XBDispatcherServlet extends HttpServlet {
         //5. 初始化HandlerMapping
         initHandlerMapping();
 
-        System.out.println("XB Spring framework 3.0 is init.");
+        System.out.println("XB Spring framework 3.0 is init !");
 
 
     }
