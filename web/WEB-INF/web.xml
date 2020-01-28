@@ -8,10 +8,10 @@
     <display-name>XiaoBei Web Application</display-name>
     <servlet>
         <servlet-name>xbmvc</servlet-name>
-        <servlet-class>com.xb.mvcframework.v3.servlet.XBDispatcherServlet</servlet-class>
+        <servlet-class>com.xb.vip.spring.mvcframework.webmvc.servlet.XBDispatcherServlet</servlet-class>
         <init-param>
             <param-name>contexConfigLocation</param-name>
-            <param-value>application.properties</param-value>
+            <param-value>classpath:application.properties</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
