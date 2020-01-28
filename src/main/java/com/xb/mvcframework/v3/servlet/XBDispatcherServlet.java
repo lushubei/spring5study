@@ -31,14 +31,14 @@ public class XBDispatcherServlet extends HttpServlet {
     private Properties configContext = new Properties();
 
     //保存扫描的所有的类名
-    private  List<String> classNames = new ArrayList<>();
+    private  List<String> classNames = new ArrayList<String>();
 
 
     //IOC容器
-    private Map<String, Object> ioc = new HashMap<>();
+    private Map<String, Object> ioc = new HashMap<String, Object>();
 
     //URL和method的对应关系
-    private List<Handler> handlerMapping = new ArrayList<>();
+    private List<Handler> handlerMapping = new ArrayList<Handler>();
 
     private class Handler {
         protected Object controller; //保存URL
@@ -50,7 +50,7 @@ public class XBDispatcherServlet extends HttpServlet {
             this.controller = controller;
             this.method = method;
             this.pattern = pattern;
-            paramIndexMapping = new HashMap<>();
+            paramIndexMapping = new HashMap<String, Integer>();
             putParamIndexMapping(method);
         }
 

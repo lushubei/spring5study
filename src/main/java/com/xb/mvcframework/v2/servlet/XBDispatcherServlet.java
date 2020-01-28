@@ -29,14 +29,14 @@ public class XBDispatcherServlet extends HttpServlet {
     private Properties configContext = new Properties();
 
     //保存扫描的所有的类名
-    private  List<String> classNames = new ArrayList<>();
+    private  List<String> classNames = new ArrayList<String>();
 
 
     //IOC容器
-    private Map<String, Object> ioc = new HashMap<>();
+    private Map<String, Object> ioc = new HashMap<String, Object>();
 
     //URL和method的对应关系
-    private Map<String, Method> handlerMapping = new HashMap<>();
+    private Map<String, Method> handlerMapping = new HashMap<String, Method>();
 
 
     @Override

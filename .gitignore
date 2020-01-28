@@ -28,4 +28,3 @@ hs_err_pid*
 *.iml
 *.iws
 .DS_Store
-src/test/

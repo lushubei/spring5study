@@ -1,5 +1,7 @@
 package com.xb.mvcframework;
 
+import org.junit.Test;
+
 import java.lang.annotation.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -59,13 +61,11 @@ interface HelloWorld {
 
 class HelloWorldImpl implements HelloWorld {
 
-    @Override
     public void sayHelloWorld() {
         // TODO Auto-generated method stub
         System.out.println("Hello World");
     }
 
-    @Override
     public void sayGoodBye() {
         // TODO Auto-generated method stub
         System.out.println("GoodBye");
@@ -90,7 +90,6 @@ class Demo01_Proxy implements InvocationHandler {
      *  method 当前调度方法
      *  args 当前方法参数
      */
-    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         System.out.println("进入代理逻辑方法");
         System.out.println("在调度真实对象之前的服务");
@@ -101,7 +100,7 @@ class Demo01_Proxy implements InvocationHandler {
     /**
      *测试代码
      */
-    @org.junit.jupiter.api.Test
+    @Test
     public void testJdkProxy() {
         Demo01_Proxy jdk = new Demo01_Proxy();
         HelloWorldImpl helloWorld = new HelloWorldImpl();
