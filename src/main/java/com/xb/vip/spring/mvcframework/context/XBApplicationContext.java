@@ -79,7 +79,8 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
                 throw new Exception("The \"" + beanDefinition.getFactoryBeanName() + "\" is exists!!");
             }
 
-            super.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(), beanDefinition);
+//            super.beanDefinitionMap.put(beanDefinition.getFactoryBeanName(), beanDefinition);
+            super.beanDefinitionMap.put(beanDefinition.getBeanClassName(), beanDefinition);
         }
 
         log.info("容器初始化完毕");
@@ -98,6 +99,13 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
     //1. 保留原来的OOP关系
     //2. 需要对它进行扩展、增强（为了以后的AOP打基础）
     public Object getBean(String beanName) throws Exception {
+
+        //如果容器中已有，直接取出
+        if(this.factoryBeanInstanceCache.containsKey(beanName)){
+            return this.factoryBeanInstanceCache.get(beanName);
+
+        }
+
         XBBeanDefinition beanDefinition = super.beanDefinitionMap.get(beanName);
 
         try {
@@ -153,8 +161,13 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
             field.setAccessible(true);
 
             try {
+                //处理当前还未初始化的属性类型
+                if(!this.factoryBeanInstanceCache.containsKey(autowiredBeanName)){
+                    this.getBean(autowiredBeanName);
+                }
+
                 field.set(instance, this.factoryBeanInstanceCache.get(autowiredBeanName).getWrappedInstance());
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
