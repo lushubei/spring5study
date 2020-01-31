@@ -117,6 +117,7 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
             //在实例初始化以后调用一次
             beanPostProcessor.postProcessAfterInitialization(instance, beanName);
 
+            //根据配置，处理DI依赖
             populateBean(beanName, instance);
 
             //通过这样调用，相当于给我们自己留有了可操作的空间

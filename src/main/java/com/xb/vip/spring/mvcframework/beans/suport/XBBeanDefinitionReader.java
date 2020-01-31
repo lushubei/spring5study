@@ -47,7 +47,7 @@ public class XBBeanDefinitionReader {
 
     private void doScanner(String scanPackage) {
         //转换为文件路径，实际就是把.替换为/
-        URL url = this.getClass().getClassLoader().getResource("/"+ scanPackage.replaceAll("\\.","/"));
+        URL url = this.getClass().getClassLoader().getResource("./"+ scanPackage.replaceAll("\\.","/"));
 
         File classPath = new File(url.getFile());
         for (File file: classPath.listFiles()) {

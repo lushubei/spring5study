@@ -1,9 +1,9 @@
 package com.xb.vip.spring.demo.mvc.action;
 
-import com.xb.mvcframework.annotation.XBAutowired;
-import com.xb.mvcframework.annotation.XBController;
-import com.xb.mvcframework.annotation.XBRequestMapping;
-import com.xb.mvcframework.annotation.XBRequestParam;
+import com.xb.vip.spring.mvcframework.annotation.XBAutowired;
+import com.xb.vip.spring.mvcframework.annotation.XBController;
+import com.xb.vip.spring.mvcframework.annotation.XBRequestMapping;
+import com.xb.vip.spring.mvcframework.annotation.XBRequestParam;
 import com.xb.vip.spring.demo.common.LogFormatter;
 import com.xb.vip.spring.demo.impl.DemoService;
 

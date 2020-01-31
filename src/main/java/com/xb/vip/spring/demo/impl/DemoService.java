@@ -1,6 +1,6 @@
 package com.xb.vip.spring.demo.impl;
 
-import com.xb.mvcframework.annotation.XBService;
+import com.xb.vip.spring.mvcframework.annotation.XBService;
 import com.xb.vip.spring.demo.IDemoService;
 
 @XBService
