@@ -120,7 +120,7 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
 
             XBBeanWrapper beanWrapper = new XBBeanWrapper(instance);
 
-            this.factoryBeanInstanceCache.put(beanName,beanWrapper);
+            this.factoryBeanInstanceCache.put(beanName,beanWrapper); //此处先塞入引用，可解决依赖循环引用问题
 
             //在实例初始化以后调用一次
             beanPostProcessor.postProcessAfterInitialization(instance, beanName);
@@ -201,7 +201,7 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
         return this.beanDefinitionMap.size();
     }
 
-    public Properties getConfi(){
+    public Properties getConfig(){
         return this.reader.getConfig();
     }
 
