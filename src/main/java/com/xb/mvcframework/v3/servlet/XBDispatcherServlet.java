@@ -159,7 +159,7 @@ public class XBDispatcherServlet extends HttpServlet {
 
 
         //1.加载配置文件
-        doLoadConfig(config.getInitParameter("contexConfigLocation"));
+        doLoadConfig(config.getInitParameter("contextConfigLocation"));
 
         //2. 扫描相关的类
         doScanner(configContext.getProperty("scanPackage"));
@@ -179,9 +179,9 @@ public class XBDispatcherServlet extends HttpServlet {
     }
 
     //1.加载配置文件
-    public void doLoadConfig(String contexConfigLocation){
+    public void doLoadConfig(String contextConfigLocation){
 
-        InputStream fis = this.getClass().getClassLoader().getResourceAsStream(contexConfigLocation);
+        InputStream fis = this.getClass().getClassLoader().getResourceAsStream(contextConfigLocation);
 
         try {
             configContext.load(fis);

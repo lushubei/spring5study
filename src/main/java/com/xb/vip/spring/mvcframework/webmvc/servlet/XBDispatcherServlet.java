@@ -2,6 +2,7 @@ package com.xb.vip.spring.mvcframework.webmvc.servlet;
 
 import com.xb.vip.spring.mvcframework.annotation.XBController;
 import com.xb.vip.spring.mvcframework.annotation.XBRequestMapping;
+import com.xb.vip.spring.mvcframework.beans.XBBeanWrapper;
 import com.xb.vip.spring.mvcframework.context.XBApplicationContext;
 import com.xb.vip.spring.mvcframework.webmvc.*;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -41,6 +41,7 @@ public class XBDispatcherServlet extends HttpServlet{
         //相当于把IOC容器初始化了
         context = new XBApplicationContext(config.getInitParameter(LOCATION));
         initStrategies(context);
+        log.debug("init初始化结束喽");
     }
 
     private void initStrategies(XBApplicationContext context) {
@@ -139,13 +140,15 @@ public class XBDispatcherServlet extends HttpServlet{
         //在页面中输入http://localhost/first.html
         //解决页面名字和模板文件的关联的问题
         String templateRoot = context.getConfig().getProperty("templateRoot");
-        String templateRootPath = this.getClass().getClassLoader().getResource(templateRoot).getFile();
 
-        File templateRootDir = new File(templateRootPath);
+        this.viewResolvers.add(new XBViewResolver(templateRoot));
 
-        for (File template : templateRootDir.listFiles()) {
-            this.viewResolvers.add(new XBViewResolver(templateRoot));
-        }
+        //下方代码没有意义
+//        String templateRootPath = this.getClass().getClassLoader().getResource(templateRoot).getFile();
+//        File templateRootDir = new File(templateRootPath);
+//        for (File template : templateRootDir.listFiles()) {
+//            this.viewResolvers.add(new XBViewResolver(template.getPath()));
+//        }
     }
 
 

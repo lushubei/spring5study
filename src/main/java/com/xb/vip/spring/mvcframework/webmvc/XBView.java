@@ -42,7 +42,7 @@ public class XBView {
                 while (matcher.find()){
 
                     String paramName = matcher.group();
-                    paramName = paramName.replaceAll("¥\\{|\\}]","");
+                    paramName = paramName.replaceAll("¥\\{|\\}","");
                     Object paramValue = model.get(paramName);
                     if (null == paramValue){continue;}
                     //要把¥{}中间的这个字符串取出来

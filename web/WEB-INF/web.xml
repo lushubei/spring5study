@@ -10,7 +10,7 @@
         <servlet-name>xbmvc</servlet-name>
         <servlet-class>com.xb.vip.spring.mvcframework.webmvc.servlet.XBDispatcherServlet</servlet-class>
         <init-param>
-            <param-name>contexConfigLocation</param-name>
+            <param-name>contextConfigLocation</param-name>
             <param-value>classpath:application.properties</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
@@ -18,7 +18,7 @@
 
     <servlet-mapping>
         <servlet-name>xbmvc</servlet-name>
-        <url-pattern>/demo/*</url-pattern>
+        <url-pattern>/web/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

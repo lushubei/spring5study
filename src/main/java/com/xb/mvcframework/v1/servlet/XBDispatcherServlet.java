@@ -112,7 +112,7 @@ public class XBDispatcherServlet extends HttpServlet {
         try {
             Properties configContext = new Properties();
 
-            is = this.getClass().getClassLoader().getResourceAsStream(config.getInitParameter("contexConfigLocation"));
+            is = this.getClass().getClassLoader().getResourceAsStream(config.getInitParameter("contextConfigLocation"));
             configContext.load(is);
 
             String scanPackage = configContext.getProperty("scanPackage");

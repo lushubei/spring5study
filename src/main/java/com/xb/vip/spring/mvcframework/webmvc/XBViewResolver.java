@@ -9,7 +9,7 @@ import java.util.Locale;
  */
 
 //设计这个类的主要目的是：
-//1. 将一个静态文件变为一个冬天文件
+//1. 将一个静态文件变为一个动态文件
 //2. 根据用户传送不同的参数，产生不同的结果
 //最终输出字符串，交给Response输出
 public class XBViewResolver {

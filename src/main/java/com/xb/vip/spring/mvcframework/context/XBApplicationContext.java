@@ -102,7 +102,7 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
 
         //如果容器中已有，直接取出
         if(this.factoryBeanInstanceCache.containsKey(beanName)){
-            return this.factoryBeanInstanceCache.get(beanName);
+            return this.factoryBeanInstanceCache.get(beanName).getWrappedInstance();//此处返回的事实际的实例
 
         }
 

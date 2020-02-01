@@ -1,6 +1,6 @@
 package com.xb.vip.spring.mvcframework.webmvc;
 
-import com.xb.mvcframework.annotation.XBRequestParam;
+import com.xb.vip.spring.mvcframework.annotation.XBRequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
