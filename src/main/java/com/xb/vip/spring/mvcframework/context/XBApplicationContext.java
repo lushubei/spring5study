@@ -3,6 +3,11 @@ package com.xb.vip.spring.mvcframework.context;
 import com.xb.vip.spring.mvcframework.annotation.XBAutowired;
 import com.xb.vip.spring.mvcframework.annotation.XBController;
 import com.xb.vip.spring.mvcframework.annotation.XBService;
+import com.xb.vip.spring.mvcframework.aop.XBAopConfig;
+import com.xb.vip.spring.mvcframework.aop.XBAopProxy;
+import com.xb.vip.spring.mvcframework.aop.XBCglibAopProxy;
+import com.xb.vip.spring.mvcframework.aop.XBJdkDynamicAopProxy;
+import com.xb.vip.spring.mvcframework.aop.support.XBAdviseSupport;
 import com.xb.vip.spring.mvcframework.beans.XBBeanWrapper;
 import com.xb.vip.spring.mvcframework.beans.config.XBBeanDefinition;
 import com.xb.vip.spring.mvcframework.beans.config.XBBeanPostProcessor;
@@ -186,12 +191,48 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
             }else{
                 Class<?> clazz = Class.forName(className);
                 instance = clazz.newInstance();
+
+                //Aop支持
+                XBAdviseSupport config = instantionAopConfig(beanDefinition,instance,clazz);
+//                config.setTargetClass(clazz);
+//                config.setTarget(instance);
+
+                if(config.pointCutMatch()){
+                    instance = createProxy(config).getProxy();
+                }
+
+                this.factoryBeanObjectCache.put(beanDefinition.getBeanClassName(),instance); //注意，此处不是beanDefinition.getFactoryBeanName
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return instance;
     }
+
+
+
+    private XBAdviseSupport instantionAopConfig(XBBeanDefinition beanDefinition, Object instance, Class<?> clazz) throws Exception{
+        XBAopConfig config = new XBAopConfig();
+
+        config.setPointCut(reader.getConfig().getProperty("pointCut"));
+        config.setAspectClass(reader.getConfig().getProperty("aspectClass"));
+        config.setAspectBefore(reader.getConfig().getProperty("aspectBefore"));
+        config.setAspectAfter(reader.getConfig().getProperty("aspectAfter"));
+        config.setAspectAfterThrow(reader.getConfig().getProperty("aspectAfterThrow"));
+        config.setAspectAfterThrowingName(reader.getConfig().getProperty("aspectAfterThrowingName"));
+
+        return new XBAdviseSupport(instance,clazz,config);
+    }
+
+    private XBAopProxy createProxy(XBAdviseSupport config) {
+        Class<?> targetClass = config.getTargetClass();
+        if(targetClass.getInterfaces().length > 0){
+            return new XBJdkDynamicAopProxy(config);
+        }
+        return new XBCglibAopProxy(config);
+    }
+
 
     public String[] getBeanDefinitionNames(){
         return this.beanDefinitionMap.keySet().toArray(new String[this.beanDefinitionMap.size()]);

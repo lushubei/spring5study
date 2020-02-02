@@ -35,7 +35,7 @@ public class MyAction {
 
     @XBRequestMapping("/add*.json")
     public XBModeAndView add(HttpServletRequest req, HttpServletResponse resp,
-                               @XBRequestParam("name") String name, @XBRequestParam("addr") String addr){
+                               @XBRequestParam("name") String name, @XBRequestParam("addr") String addr) throws Exception{
         String result = modifyService.add(name,addr);
         return out(resp,result);
 
