@@ -186,8 +186,8 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
 
         try {
             //因为根据Class才能确定一个类是否有实例
-            if(this.factoryBeanInstanceCache.containsKey(className)){
-                instance = this.factoryBeanInstanceCache.get(className);
+            if(this.factoryBeanObjectCache.containsKey(className)){
+                instance = this.factoryBeanObjectCache.get(className);
             }else{
                 Class<?> clazz = Class.forName(className);
                 instance = clazz.newInstance();
