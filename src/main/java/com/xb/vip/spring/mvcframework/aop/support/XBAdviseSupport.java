@@ -1,10 +1,9 @@
 package com.xb.vip.spring.mvcframework.aop.support;
 
 import com.xb.vip.spring.mvcframework.aop.XBAopConfig;
+import com.xb.vip.spring.mvcframework.aop.aspect.XBAfterReturningAdvice;
 import com.xb.vip.spring.mvcframework.aop.aspect.XBAfterThrowingAdvice;
-import com.xb.vip.spring.mvcframework.aop.aspect.XBMethodAfterAdvice;
 import com.xb.vip.spring.mvcframework.aop.aspect.XBMethodBeforeAdvice;
-import org.omg.CORBA.OBJ_ADAPTER;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -69,11 +68,14 @@ public class XBAdviseSupport {
 
     private void parse(){
         //pointCut表达式
-        String pointCut = config.getPointCut().replaceAll("\\.","\\\\.")
-                .replaceAll("\\\\.\\*",".*").replaceAll("\\(","\\\\(")
-                .replaceAll("\\)","\\\\)");
+//        String pointCut = config.getPointCut().replaceAll("\\.","\\\\.")
+//                .replaceAll("\\\\.\\*",".*").replaceAll("\\(","\\\\(")
+//                .replaceAll("\\)","\\\\)");
 
-        String pointCutForClass = pointCut.substring(0,pointCut.lastIndexOf("\\(") -4 );
+        String pointCut = config.getPointCut();
+
+        String pointCutForClass = pointCut.substring(0,pointCut.lastIndexOf("(") -3 );
+
         pointCutCClassPattern = Pattern.compile("class " + pointCutForClass.substring(pointCutForClass.lastIndexOf(" ")+1));
 
         methodCache = new HashMap<Method, List<Object>>();
@@ -104,7 +106,7 @@ public class XBAdviseSupport {
 
                     //后置通知
                     if(!(null==config.getAspectAfter() || "".equals(config.getAspectAfter().trim()))){
-                        advice.add(new XBMethodAfterAdvice(aspectMethods.get(config.getAspectAfter()),aspectClass.newInstance()));
+                        advice.add(new XBAfterReturningAdvice(aspectMethods.get(config.getAspectAfter()),aspectClass.newInstance()));
                     }
 
                     //异常通知

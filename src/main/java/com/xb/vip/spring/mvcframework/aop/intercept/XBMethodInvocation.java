@@ -56,15 +56,15 @@ public class XBMethodInvocation implements XBJoinPoint {
     }
 
     public Method getMethod() {
-        return null;
+        return this.method;
     }
 
     public Object[] getArguments() {
-        return new Object[0];
+        return this.arguments;
     }
 
     public Object getThis() {
-        return null;
+        return this.target;
     }
 
     public void setUserAttribute(String key, Object value) {

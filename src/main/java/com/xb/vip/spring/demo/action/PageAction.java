@@ -2,6 +2,7 @@ package com.xb.vip.spring.demo.action;
 
 
 import com.xb.vip.spring.demo.impl.QueryService;
+import com.xb.vip.spring.demo.service.IQueryService;
 import com.xb.vip.spring.mvcframework.annotation.XBAutowired;
 import com.xb.vip.spring.mvcframework.annotation.XBController;
 import com.xb.vip.spring.mvcframework.annotation.XBRequestMapping;
@@ -19,8 +20,8 @@ import java.util.Map;
 @XBRequestMapping("/web")
 public class PageAction {
 
-    @XBAutowired
-    QueryService queryService;
+    @XBAutowired("com.xb.vip.spring.demo.impl.QueryService")
+    IQueryService queryService;
 
     @XBRequestMapping("/first.html")
     public XBModeAndView query(@XBRequestParam("teacher") String teacher){

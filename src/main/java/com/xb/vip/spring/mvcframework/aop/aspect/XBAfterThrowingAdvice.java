@@ -25,6 +25,7 @@ public class XBAfterThrowingAdvice extends XBAbstractAspectJAdvice implements XB
         } catch (Throwable ex) {
             invokeAdviceMethod(mi,null,ex.getCause());
             ex.printStackTrace();
+
             throw ex;
         }
     }

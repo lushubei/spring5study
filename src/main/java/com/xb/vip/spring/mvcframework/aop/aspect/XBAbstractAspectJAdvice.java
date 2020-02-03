@@ -18,7 +18,7 @@ public abstract class XBAbstractAspectJAdvice implements XBAdvice{
     }
 
     //反射动态调用方法
-    protected Object invokeAdviceMethod(XBJoinPoint joinPoint,Object returnValue,Throwable ex) throws Throwable{
+    protected Object invokeAdviceMethod(XBJoinPoint joinPoint,Object returnValue,Throwable ex) throws Exception{
         Class<?>[] paramsTypes = this.aspectMethod.getParameterTypes();
         if(null==paramsTypes || paramsTypes.length == 0){
             return this.aspectMethod.invoke(aspectTarget);
@@ -26,9 +26,11 @@ public abstract class XBAbstractAspectJAdvice implements XBAdvice{
             Object[] args = new Object[paramsTypes.length];
             for(int i = 0; i<paramsTypes.length;i++){
 
-                if(paramsTypes[i] == XBJoinPoint.class){
+                if(paramsTypes[i] == XBJoinPoint.class) {
                     args[i] = joinPoint;
-                }else if(paramsTypes[i] == Object.class){
+                }else if(paramsTypes[i] == Throwable.class){
+                    args[i] = ex;
+                } else if(paramsTypes[i] == Object.class){
                     args[i] = returnValue;
                 }
             }

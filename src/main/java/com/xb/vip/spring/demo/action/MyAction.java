@@ -18,11 +18,11 @@ import java.io.IOException;
 @XBRequestMapping("/web")
 public class MyAction {
 
-    @XBAutowired
-    QueryService queryService;
+    @XBAutowired("com.xb.vip.spring.demo.impl.QueryService")
+    IQueryService queryService;
 
-    @XBAutowired
-    ModifyService modifyService;
+    @XBAutowired("com.xb.vip.spring.demo.impl.ModifyService")
+    IModifyService modifyService;
 
     @XBRequestMapping("/query.json")
     public XBModeAndView query(HttpServletRequest req, HttpServletResponse resp,

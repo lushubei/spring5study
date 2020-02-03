@@ -193,7 +193,7 @@ public class XBDispatcherServlet extends HttpServlet{
         } catch (Exception e) {
             resp.getWriter().write("<font size='25' color='blue'>500 Exception</font><br/>Details:<br/>"
             + Arrays.toString(e.getStackTrace()).replaceAll("\\[|\\]","")
-                            .replaceAll("\\s","\r\n") + "<front collor='green'><i>Copyright@XiaoBei</i></front>"
+                            .replaceAll("\\s","\r\n") + "\n<front collor='green'><i>Copyright@XiaoBei</i></front>"
             );
 
             e.printStackTrace();

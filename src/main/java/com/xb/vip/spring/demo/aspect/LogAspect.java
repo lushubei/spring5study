@@ -3,7 +3,6 @@ package com.xb.vip.spring.demo.aspect;
 import com.xb.vip.spring.mvcframework.aop.aspect.XBJoinPoint;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 @Slf4j
@@ -27,6 +26,8 @@ public class LogAspect {
     }
 
     public void afterThrowing(XBJoinPoint joinPoint, Throwable ex){
+
+
         log.info("出现异常" + "\nTargetObject:" + joinPoint.getThis() +
                 "\nArgs:" + Arrays.toString(joinPoint.getArguments()) +
                 "\nThrows:" + ex.getMessage()

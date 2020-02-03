@@ -227,10 +227,14 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
 
     private XBAopProxy createProxy(XBAdviseSupport config) {
         Class<?> targetClass = config.getTargetClass();
-        if(targetClass.getInterfaces().length > 0){
-            return new XBJdkDynamicAopProxy(config);
-        }
-        return new XBCglibAopProxy(config);
+
+        return new XBJdkDynamicAopProxy(config);
+
+        //todo
+//        if(targetClass.getInterfaces().length > 0){
+//            return new XBJdkDynamicAopProxy(config);
+//        }
+//        return new XBCglibAopProxy(config);
     }
 
 
