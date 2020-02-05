@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Member implements Serializable {
 
    @Column(name = "id")
-   private Long id;
+   private Integer id;
 
    @Column(name = "name")
    private String name;

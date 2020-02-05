@@ -27,7 +27,7 @@ public class XBSqlContect {
 
             while (rs.next()){
                 Member instance = new Member();
-                instance.setId(rs.getLong("id"));
+                instance.setId(rs.getInt("id"));
                 instance.setName(rs.getString("name"));
                 instance.setAge(rs.getInt("age"));
 

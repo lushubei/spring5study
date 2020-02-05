@@ -76,12 +76,8 @@ public class XBSqlContect {
             pstm = con.prepareStatement(real_sql);
             rs = pstm.executeQuery(sql + where.toString());
 
-            //保存了处理真正数值以外的所有附加信息
-            int columnCounts = rs.getMetaData().getColumnCount();
-
             while (rs.next()){
-
-                Object instance = mapperRow(rs, rs.getRow());
+                Object instance = mapperRow(rs, entityClass, columnMapper);
                 result.add(instance);
             }
 
@@ -100,11 +96,20 @@ public class XBSqlContect {
         return result;
     }
 
-    private static Member mapperRow(ResultSet rs, int i) throws Exception{
-        Member instance = new Member();
-        instance.setId(rs.getLong("id"));
-        instance.setName(rs.getString("name"));
-        instance.setAge(rs.getInt("age"));
+    private static Object mapperRow(ResultSet rs, Class<?> entityClass, Map<String,String> columnMapper) throws Exception{
+
+        //通过反射机制拿到拿到实体类的所有字段
+        Object instance = entityClass.newInstance();
+
+        //保存了处理真正数值以外的所有附加信息
+        int columnCounts = rs.getMetaData().getColumnCount();
+
+        for(int i = 1; i <= columnCounts; i++){
+            String columnName = rs.getMetaData().getColumnName(i);
+            Field field = entityClass.getDeclaredField(columnMapper.get(columnName));
+            field.setAccessible(true);
+            field.set(instance,rs.getObject(columnName));
+        }
 
         return instance;
     }
