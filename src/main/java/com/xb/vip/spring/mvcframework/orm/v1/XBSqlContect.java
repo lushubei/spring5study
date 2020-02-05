@@ -1,14 +1,15 @@
-package com.xb.vip.spring.mvcframework.orm;
+package com.xb.vip.spring.mvcframework.orm.v1;
 
+import com.xb.vip.spring.demo.entity.Member;
 import org.junit.Test;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyResultSet {
+public class XBSqlContect {
 
-    private static List<Member> select(String sql){
+    public List<Member> select(String sql){
 
         List<Member> result = new ArrayList<Member>();
         Connection con = null;
