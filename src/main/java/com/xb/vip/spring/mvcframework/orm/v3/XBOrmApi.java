@@ -1,5 +1,7 @@
 package com.xb.vip.spring.mvcframework.orm.v3;
 
+import com.xb.vip.spring.mvcframework.orm.v3.core.common.Page;
+
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +28,7 @@ public  interface XBOrmApi<T> {
      * @return
      * @throws Exception
      */
-    Page<?> select(QueryRule queryRule,int pageNo, int pageSize) throws Exception;
+    Page<?> select(QueryRule queryRule, int pageNo, int pageSize) throws Exception;
 
 
     /** 查

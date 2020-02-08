@@ -1,4 +1,4 @@
-package com.xb.vip.spring.mvcframework.orm.v3;
+package com.xb.vip.spring.mvcframework.orm.v3.core.common;
 
 import java.io.Serializable;
 
