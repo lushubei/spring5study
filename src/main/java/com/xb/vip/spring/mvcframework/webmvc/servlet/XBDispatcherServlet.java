@@ -38,9 +38,9 @@ public class XBDispatcherServlet extends HttpServlet{
     @Override
     public void init(ServletConfig config) throws ServletException{
         log.debug("现在开始初始化");
-        //相当于把IOC容器初始化了
+        //相当于把IOC容器初始化
         context = new XBApplicationContext(config.getInitParameter(LOCATION));
-        initStrategies(context);
+        initStrategies(context); //mvc九大组件初始化
         log.debug("init初始化结束喽");
     }
 
@@ -184,10 +184,6 @@ public class XBDispatcherServlet extends HttpServlet{
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         log.debug("post 函数的处理部分在这里");
-//        resp.setHeader("Content-type", "text/html;charset=UTF-8");
-//        resp.setCharacterEncoding("UTF-8");
-//        resp.getWriter().write("这几给你返回个数据");
-
         try {
             doDispatch(req,resp);
         } catch (Exception e) {

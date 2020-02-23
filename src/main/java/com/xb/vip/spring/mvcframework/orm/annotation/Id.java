@@ -5,10 +5,5 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Column {
-    String name();
-    boolean insertable() default false;
-    boolean updatable() default false;
-
-
+public @interface Id {
 }

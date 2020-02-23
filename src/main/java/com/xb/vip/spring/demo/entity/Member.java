@@ -16,7 +16,7 @@ public class Member implements Serializable {
    private String name;
 
    @Column(name = "age")
-   private int age;
+   private Integer age;
 
 
    @Override

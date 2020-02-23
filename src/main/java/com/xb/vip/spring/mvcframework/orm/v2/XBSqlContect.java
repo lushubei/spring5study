@@ -1,6 +1,5 @@
 package com.xb.vip.spring.mvcframework.orm.v2;
 
-import com.xb.vip.spring.demo.entity.Member;
 import com.xb.vip.spring.mvcframework.orm.annotation.Column;
 import com.xb.vip.spring.mvcframework.orm.annotation.Table;
 
@@ -56,7 +55,11 @@ public class XBSqlContect {
             Table table = entityClass.getAnnotation(Table.class);
             String sql = "select * from " + table.name();
 
-            StringBuffer where = new StringBuffer(" where 1=1 ");
+
+            StringBuffer where = new StringBuffer("");
+            if (fields != null && fields.length > 0){
+                where = new StringBuffer(" where 1=1 ");
+            }
 
             for (Field field: fields ) {
                 Object value = field.get(condition);
@@ -98,12 +101,12 @@ public class XBSqlContect {
 
     private static Object mapperRow(ResultSet rs, Class<?> entityClass, Map<String,String> columnMapper) throws Exception{
 
-        //通过反射机制拿到拿到实体类的所有字段
         Object instance = entityClass.newInstance();
 
         //保存了处理真正数值以外的所有附加信息
         int columnCounts = rs.getMetaData().getColumnCount();
 
+        //通过反射机制拿到拿到实体类的所有字段
         for(int i = 1; i <= columnCounts; i++){
             String columnName = rs.getMetaData().getColumnName(i);
             Field field = entityClass.getDeclaredField(columnMapper.get(columnName));

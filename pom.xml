@@ -26,6 +26,21 @@
             <version>1.16.10</version>
         </dependency>
 
+        <!--v3.0使用它的RowMapper-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.1.7.RELEASE</version>
+        </dependency>
+
+        <!--v2.0,3.0使用它的DAO注解，暂未使用，自己写了几个注解代替-->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+
         <!--@slfj-suport-->
         <dependency>
             <groupId>org.slf4j</groupId>

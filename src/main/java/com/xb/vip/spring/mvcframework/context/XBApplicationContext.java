@@ -212,7 +212,7 @@ public class XBApplicationContext extends XBDefaultListableBeanFactory implement
 
 
 
-    private XBAdviseSupport instantionAopConfig(XBBeanDefinition beanDefinition, Object instance, Class<?> clazz) throws Exception{
+    private XBAdviseSupport  instantionAopConfig(XBBeanDefinition beanDefinition, Object instance, Class<?> clazz) throws Exception{
         XBAopConfig config = new XBAopConfig();
 
         config.setPointCut(reader.getConfig().getProperty("pointCut"));

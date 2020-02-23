@@ -216,11 +216,11 @@ public final class QueryRule implements Serializable {
         this.ruleList.add(new Rule(LT, propertyName,new Object[]{value}).setAndOr(OR));
         return this;
     }
+
     public QueryRule orLessEqual(String propertyName, Object value) {
         this.ruleList.add(new Rule(LE, propertyName,new Object[]{value}).setAndOr(OR));
         return this;
     }
-
 
     public List<Rule> getRuleList(){
         return ruleList;
@@ -228,6 +228,10 @@ public final class QueryRule implements Serializable {
 
     public List<QueryRule> getQueryRuleList() {
         return queryRuleList;
+    }
+
+    public String getPropertyName(){
+        return this.propertyName;
     }
 
     public class Rule implements Serializable{
