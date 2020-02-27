@@ -1,5 +1,6 @@
 package com.xb.vip.spring.mvcframework.orm.v3.framework;
 
+import com.xb.vip.spring.mvcframework.orm.v3.Order;
 import com.xb.vip.spring.mvcframework.orm.v3.QueryRule;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -79,7 +80,7 @@ public class QueryRuleSqlBuilder {
                     processLike(rule);
                     break;
                 case QueryRule.NOTEQ:
-                    prcessNotEqual(rule);
+                    processNotEqual(rule);
                     break;
                 case QueryRule.GT:
                     processGreaterThen(rule);
@@ -139,7 +140,7 @@ public class QueryRuleSqlBuilder {
     protected String removeOrders(String sql) {
         Pattern p = Pattern.compile("order\\s*by[\\w|\\W|\\s|\\S]*", Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(sql);
-        StringBuilder sb = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
         while (m.find()){
             m.appendReplacement(sb, "");
         }
@@ -266,7 +267,7 @@ public class QueryRuleSqlBuilder {
      * @param rule
      */
     private void processIsNull(QueryRule.Rule rule){
-        add(rule.getAndOr(), rule.getPropertyName(), "is null", "");
+        add(rule.getAndOr(), rule.getPropertyName(), "is null", null);
     }
 
     /**
@@ -274,7 +275,7 @@ public class QueryRuleSqlBuilder {
      * @param rule
      */
     private void processIsNotNull(QueryRule.Rule rule){
-        add(rule.getAndOr(), rule.getPropertyName(), "is not null", "");
+        add(rule.getAndOr(), rule.getPropertyName(), "is not null", null);
     }
 
     /**
@@ -282,9 +283,16 @@ public class QueryRuleSqlBuilder {
      * @param rule
      */
     private void processIsNotEmpty(QueryRule.Rule rule){
-        add(rule.getAndOr(), rule.getPropertyName(), "<>", "");
+        add(rule.getAndOr(), rule.getPropertyName(), "<>", "''");
     }
 
+    /**
+     * 处理 = ''
+     * @param rule
+     */
+    private void processIsEmpty(QueryRule.Rule rule){
+        add(rule.getAndOr(), rule.getPropertyName(), "=", "''");
+    }
 
     /**
      * 处理 in 和 not in
@@ -348,8 +356,29 @@ public class QueryRuleSqlBuilder {
         inAndNotIn(rule,"in");
     }
 
+    /**
+     * 处理 <=
+     * @param rule
+     */
+    private void processOrder(QueryRule.Rule rule){
+        switch (rule.getType()){
+            case QueryRule.ASC_ODER:
+                // propertyName 非空
+                if (!StringUtils.isEmpty(rule.getPropertyName())){
+                    orders.add(Order.asc(rule.getPropertyName()));
+                }
+                break;
+            case QueryRule.DESC_ODER:
+                // propertyName 非空
+                if (!StringUtils.isEmpty(rule.getPropertyName())){
+                    orders.add(Order.desc(rule.getPropertyName()));
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-    //todo
 
     /**
      * 加入SQL查询规则队列
@@ -380,5 +409,44 @@ public class QueryRuleSqlBuilder {
             CURR_INDEX ++;
         }
     }
+
+    /**
+     * 拼装 where 语句
+     */
+    private void appendWhereSql(){
+        StringBuffer whereSql = new StringBuffer();
+        for (String p : properties) {
+            whereSql.append(p);
+        }
+        this.whereSql = removeSelect(removeOrders(whereSql.toString()));
+    }
+
+    /**
+     * 拼装排序语句
+     */
+    private void appendOrderSql(){
+        StringBuffer orderSql = new StringBuffer();
+        for (int i = 0; i < orders.size(); i++){
+            if(i>0 && i < orders.size()){
+                orderSql.append(",");
+            }
+            orderSql.append(orders.get(i).toString());
+        }
+        this.orderSql = removeSelect(removeOrders(orderSql.toString()));
+    }
+
+    /**
+     * 拼装参数值
+     */
+    private void appendValues(){
+        Object [] val = new Object[values.size()];
+        for (int i = 0; i < values.size(); i++){
+            val[i] = values.get(i);
+            valueMap.put(i, values.get(i));
+        }
+        this.valueArr = val;
+    }
+
+
 
 }
