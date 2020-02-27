@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * 实体多想的反射操作
+ * 实体对象的反射操作
  * 主要实现数据库表结构和对象类结构的映射关系
  */
 @Slf4j

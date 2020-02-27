@@ -52,7 +52,6 @@ public interface BaseDao<T,PK> {
      */
     Page<Map<String,Object>> selectBySqlToPage(String sql,Object[] param,int pageNo,int pageSize) throws Exception;
 
-
     /** 删
      * 删除一条记录
      * @param entity 都为空不执行
